@@ -1,0 +1,23 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity mux is
+  port (
+    sel  : in  std_logic;
+    in0  : in  std_logic;
+    in1  : in  std_logic;
+    out1 : out std_logic
+  );
+end entity mux;
+
+architecture behavioral of mux is
+begin
+  process(sel, in0, in1)
+  begin
+    if sel = '0' then
+      out1 <= in0;
+    else
+      out1 <= in1;
+    end if;
+  end process;
+end architecture behavioral;
