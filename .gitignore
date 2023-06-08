@@ -1,0 +1,11 @@
+db/
+incremental_db/
+ip/
+logs/
+modelsim_ase/
+nios2eds/
+output_files/
+quartus/
+simulation/
+uninstall/
+
