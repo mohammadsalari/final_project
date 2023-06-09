@@ -1,0 +1,102 @@
+-- In the name of God
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity tb_register_file is
+end entity;
+
+
+architecture arch_tb_register_file of tb_register_file is
+component register_file is
+port(
+  clk, reset:in std_logic;
+  -- read or write
+  w_en:in std_logic;
+  --
+  -- 4_word fifo => it has 2-bit address bus, and each register has 32-bit len
+  r_addr, w_addr:in std_logic_vector(1 downto 0); 
+  w_data:in std_logic_vector(31 downto 0);
+  r_data:out std_logic_vector(31 downto 0)
+);
+end component;
+
+signal clk_tb, reset_tb:std_logic;
+signal w_en_tb:std_logic;
+signal r_addr_tb, w_addr_tb:std_logic_vector(1 downto 0);
+signal r_data_tb, w_data_tb:std_logic_vector(31 downto 0);
+
+begin
+
+lbl:register_file
+port map(clk=>clk_tb, reset=>reset_tb, w_en=>w_en_tb, w_addr=>w_addr_tb, w_data=>w_data_tb, r_addr=>r_addr_tb, r_data=>r_data_tb);
+
+-- reset generator
+process
+begin
+reset_tb<='1';
+wait for 10ps;
+reset_tb<='0';
+wait;
+
+
+end process;
+
+-- clock generator
+process
+begin
+clk_tb<='0';
+wait for 50ps;
+clk_tb<='1';
+wait for 50ps;
+
+end process;
+
+
+-- write data generator
+process
+begin
+
+w_en_tb<='1';
+
+
+w_addr_tb<="00";
+w_data_tb<="11111111000000000000000000000000";
+wait for 100ps;
+
+w_addr_tb<="01";
+w_data_tb<="11111111111111110000000000000000";
+wait for 100ps;
+
+w_addr_tb<="10";
+w_data_tb<="11111111111111111111111100000000";
+wait for 100ps;
+
+w_addr_tb<="11";
+w_data_tb<="11111111111111111111111111111111";
+wait for 100ps;
+
+wait;
+
+end process;
+
+
+--read data generator
+process
+begin
+
+r_addr_tb <= "00";
+wait for 500ps;
+r_addr_tb <= "01";
+wait for 100ps;
+r_addr_tb <= "10";
+wait for 100ps;
+r_addr_tb <= "11";
+wait;
+end process;
+
+
+
+
+
+end architecture;

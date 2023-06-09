@@ -1,0 +1,75 @@
+-- In the name of God
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity register_file is
+port(
+  clk, reset:in std_logic;
+  -- read or write
+  w_en:in std_logic;
+  --
+  -- 4_word fifo => it has 2-bit address bus, and each register has 32-bit len
+  r_addr, w_addr:in std_logic_vector(1 downto 0); 
+  w_data:in std_logic_vector(31 downto 0);
+  r_data:out std_logic_vector(31 downto 0)
+);
+end entity;
+
+
+architecture arch_register_file of register_file is
+  type states is (rd, wr);
+  type two_dim_reg is array(0 to 3) of
+    std_logic_vector(31 downto 0);
+  signal r_next:states:=rd;
+  signal r_reg:states:=rd;
+  signal reg:two_dim_reg;
+  signal data:std_logic_vector(31 downto 0);
+begin
+
+-- state register
+process(clk, reset)
+begin
+
+if(reset='1') then
+  r_reg <= rd;
+  reg<=(others=>(others=>'0'));
+elsif(clk'event and clk='1') then
+  r_reg <= r_next;
+  data<=reg(to_integer(unsigned(r_addr)));
+  if(r_next=wr) then
+    reg(to_integer(unsigned(w_addr))) <= w_data;
+  end if;
+end if;
+
+end process;
+
+
+-- next state logic
+process(r_reg, w_en)
+begin
+
+case r_reg is 
+  when rd =>
+    if(w_en='0') then
+      r_next <= rd;
+   else
+      r_next <= wr;
+   end if;
+  when wr =>
+    if(w_en='0') then
+      r_next <= rd;
+   else
+      r_next <= wr;
+   end if;
+end case;
+
+end process;
+
+
+
+-- output logic
+r_data<=data;
+
+end architecture;
