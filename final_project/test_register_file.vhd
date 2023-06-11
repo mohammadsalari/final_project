@@ -69,7 +69,7 @@ begin
     addr <= "00";
     data_in <= "101010101010";
     write_enable <= '1';
-    wait for 20 ns;
+    wait for 20ns;
     
     -- Test Case 2: Write to register 2
     addr <= "10";
@@ -80,17 +80,23 @@ begin
     -- Test Case 3: Read from register 0
     addr <= "00";
     write_enable <= '0';
-    wait for 20 ns;
+	 wait for 10ns;
+	 assert (data_out="101010101010") report "test_1 failed..." severity error;
+    wait for 10 ns;
     
     -- Test Case 4: Read from register 2
     addr <= "10";
     write_enable <= '0';
-    wait for 20 ns;
+    wait for 10ns;
+	 assert (data_out="111100001111") report "test_2 failed..." severity error;
+	 wait for 10ns;
     
 	 -- Test Case 5: Read from register 1
     addr <= "01";
     write_enable <= '0';
-    wait for 20 ns;
+    wait for 10ns;
+	 report "data_out is unknown...";
+	 wait for 10ns;
 	 
 	 
     -- Add more test cases if needed

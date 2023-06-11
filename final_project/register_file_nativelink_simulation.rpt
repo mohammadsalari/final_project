@@ -1,8 +1,9 @@
 Info: Start Nativelink Simulation process
+Info: NativeLink has detected VHDL design -- VHDL simulation models will be used
 
 ========= EDA Simulation Settings =====================
 
-Sim Mode              :  Gate
+Sim Mode              :  RTL
 Family                :  cycloneive
 Quartus root          :  c:/altera/13.1/quartus/bin64/
 Quartus sim root      :  c:/altera/13.1/quartus/eda/sim_lib
@@ -10,105 +11,13 @@ Simulation Tool       :  modelsim-altera
 Simulation Language   :  vhdl
 Version               :  93
 Simulation Mode       :  GUI
-Sim Output File       :  register_file.vho
-Sim SDF file          :  register_file__vhdl.sdo
+Sim Output File       :  
+Sim SDF file          :  
 Sim dir               :  simulation\modelsim
 
 =======================================================
 
 Info: Starting NativeLink simulation with ModelSim-Altera software
 Sourced NativeLink script c:/altera/13.1/quartus/common/tcl/internal/nativelink/modelsim.tcl
-Warning: File register_file_run_msim_gate_vhdl.do already exists - backing up current file as register_file_run_msim_gate_vhdl.do.bak11
-Probing transcript
-ModelSim-Altera Info: # Reading C:/altera/15.0/modelsim_ase/tcl/vsim/pref.tcl
-ModelSim-Altera Info: # do register_file_run_msim_gate_vhdl.do
-ModelSim-Altera Info: # if {[file exists gate_work]} {
-ModelSim-Altera Info: # 	vdel -lib gate_work -all
-ModelSim-Altera Info: # }
-ModelSim-Altera Info: # vlib gate_work
-ModelSim-Altera Info: # vmap work gate_work
-ModelSim-Altera Info: # Model Technology ModelSim PE vmap 10.3d Lib Mapping Utility 2014.10 Oct  7 2014
-ModelSim-Altera Info: # vmap -modelsim_quiet work gate_work 
-ModelSim-Altera Info: # Copying C:/altera/15.0/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
-ModelSim-Altera Info: # Modifying modelsim.ini
-ModelSim-Altera Warning: # ** Warning: Copied C:/altera/15.0/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini.
-ModelSim-Altera Info: #          Updated modelsim.ini.
-ModelSim-Altera Info: # 
-ModelSim-Altera Info: # vcom -93 -work work {register_file.vho}
-ModelSim-Altera Info: # Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
-ModelSim-Altera Info: # Start time: 01:28:23 on Jun 09,2023
-ModelSim-Altera Info: # vcom -reportprogress 300 -93 -work work register_file.vho 
-ModelSim-Altera Info: # -- Loading package STANDARD
-ModelSim-Altera Info: # -- Loading package TEXTIO
-ModelSim-Altera Info: # -- Loading package std_logic_1164
-ModelSim-Altera Info: # -- Loading package VITAL_Timing
-ModelSim-Altera Info: # -- Loading package VITAL_Primitives
-ModelSim-Altera Info: # -- Loading package dffeas_pack
-ModelSim-Altera Info: # -- Loading package altera_primitives_components
-ModelSim-Altera Info: # -- Loading package cycloneive_atom_pack
-ModelSim-Altera Info: # -- Loading package cycloneive_components
-ModelSim-Altera Info: # -- Compiling entity register_file
-ModelSim-Altera Info: # -- Compiling architecture structure of register_file
-ModelSim-Altera Info: # End time: 01:28:24 on Jun 09,2023, Elapsed time: 0:00:01
-ModelSim-Altera Info: # Errors: 0, Warnings: 0
-ModelSim-Altera Info: # 
-ModelSim-Altera Info: # vcom -93 -work work {C:/altera/13.1/final_project/test_register_file.vhd}
-ModelSim-Altera Info: # Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
-ModelSim-Altera Info: # Start time: 01:28:24 on Jun 09,2023
-ModelSim-Altera Info: # vcom -reportprogress 300 -93 -work work C:/altera/13.1/final_project/test_register_file.vhd 
-ModelSim-Altera Info: # -- Loading package STANDARD
-ModelSim-Altera Info: # -- Loading package TEXTIO
-ModelSim-Altera Info: # -- Loading package std_logic_1164
-ModelSim-Altera Info: # -- Compiling entity test_register_file
-ModelSim-Altera Info: # -- Compiling architecture arch_test_register_file of test_register_file
-ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_register_file.vhd(51): (vcom-1207) An abstract literal and an identifier must have a separator between them.
-ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_register_file.vhd(53): (vcom-1207) An abstract literal and an identifier must have a separator between them.
-ModelSim-Altera Info: # End time: 01:28:24 on Jun 09,2023, Elapsed time: 0:00:00
-ModelSim-Altera Info: # Errors: 0, Warnings: 2
-ModelSim-Altera Info: # 
-ModelSim-Altera Info: # vsim -t 1ps +transport_int_delays +transport_path_delays -sdftyp /dut=register_file_vhd.sdo -L altera -L cycloneive -L gate_work -L work -voptargs="+acc"  test_register_file
-ModelSim-Altera Info: # vsim -gui -l msim_transcript -do "register_file_run_msim_gate_vhdl.do" 
-ModelSim-Altera Info: # Start time: 01:28:24 on Jun 09,2023
-ModelSim-Altera Info: # Loading std.standard
-ModelSim-Altera Info: # Loading std.textio(body)
-ModelSim-Altera Info: # Loading ieee.std_logic_1164(body)
-ModelSim-Altera Info: # Loading work.test_register_file(arch_test_register_file)
-ModelSim-Altera Info: # SDF 10.3d Compiler 2014.10 Oct  7 2014
-ModelSim-Altera Info: # 
-ModelSim-Altera Info: # Loading ieee.vital_timing(body)
-ModelSim-Altera Info: # Loading ieee.vital_primitives(body)
-ModelSim-Altera Info: # Loading altera.dffeas_pack
-ModelSim-Altera Info: # Loading altera.altera_primitives_components
-ModelSim-Altera Info: # Loading cycloneive.cycloneive_atom_pack(body)
-ModelSim-Altera Info: # Loading cycloneive.cycloneive_components
-ModelSim-Altera Info: # Loading work.register_file(structure)
-ModelSim-Altera Warning: # ** Warning: (vsim-8713) C:/altera/13.1/final_project/test_register_file.vhd(43): Suspect default binding for component instance 'dut'.
-ModelSim-Altera Info: # 
-ModelSim-Altera Info: #    Entity has no generics at all; the component has generics:
-ModelSim-Altera Info: #           ADDR_WIDTH
-ModelSim-Altera Info: #           DATA_WIDTH
-ModelSim-Altera Info: # 
-ModelSim-Altera Info: #         Region: /test_register_file/dut
-ModelSim-Altera Info: # Loading ieee.std_logic_arith(body)
-ModelSim-Altera Info: # Loading cycloneive.cycloneive_io_obuf(arch)
-ModelSim-Altera Info: # Loading cycloneive.cycloneive_io_ibuf(arch)
-ModelSim-Altera Info: # Loading cycloneive.cycloneive_clkctrl(vital_clkctrl)
-ModelSim-Altera Info: # Loading cycloneive.cycloneive_ena_reg(behave)
-ModelSim-Altera Info: # Loading cycloneive.cycloneive_lcell_comb(vital_lcell_comb)
-ModelSim-Altera Info: # Loading altera.dffeas(vital_dffeas)
-ModelSim-Altera Info: # Loading instances from register_file_vhd.sdo
-ModelSim-Altera Info: # Loading timing data from register_file_vhd.sdo
-ModelSim-Altera Warning: # ** Warning: Design size of 17575 statements exceeds ModelSim Altera Starter recommended capacity.
-ModelSim-Altera Info: # Expect performance to be adversely affected.
-ModelSim-Altera Info: # ** Note: (vsim-3587) SDF Backannotation Successfully Completed.
-ModelSim-Altera Info: #    Time: 0 ps  Iteration: 0  Instance: /test_register_file File: C:/altera/13.1/final_project/test_register_file.vhd
-ModelSim-Altera Info: # 
-ModelSim-Altera Info: # add wave *
-ModelSim-Altera Info: # view structure
-ModelSim-Altera Info: # .main_pane.structure.interior.cs.body.struct
-ModelSim-Altera Info: # view signals
-ModelSim-Altera Info: # .main_pane.objects.interior.cs.body.tree
-ModelSim-Altera Info: # run 100 ns
-ModelSim-Altera Info: # End time: 01:28:45 on Jun 09,2023, Elapsed time: 0:00:21
-ModelSim-Altera Info: # Errors: 0, Warnings: 2
-Info: NativeLink simulation flow was successful
+Warning: File register_file_run_msim_rtl_vhdl.do already exists - backing up current file as register_file_run_msim_rtl_vhdl.do.bak2
+Info: Spawning ModelSim-Altera Simulation software 
