@@ -9,7 +9,8 @@ architecture arch_test_register_file of test_register_file is
   constant ADDR_WIDTH: positive := 2;   -- Width of the address
   
   signal clk: std_logic;                 -- Clock signal
-  signal addr: std_logic_vector(ADDR_WIDTH - 1 downto 0);  -- Address input
+  signal read_addr: std_logic_vector(ADDR_WIDTH - 1 downto 0);  -- read address input
+  signal write_addr: std_logic_vector(ADDR_WIDTH - 1 downto 0);  -- write address input
   signal data_in: std_logic_vector(DATA_WIDTH - 1 downto 0); -- Data input
   signal write_enable: std_logic;        -- Write enable signal
   signal data_out: std_logic_vector(DATA_WIDTH - 1 downto 0); -- Data output
@@ -21,8 +22,9 @@ architecture arch_test_register_file of test_register_file is
     );
     port(
       clk: in std_logic;                 -- Clock input
-      addr: in std_logic_vector(ADDR_WIDTH - 1 downto 0);  -- Address input
-      data_in: in std_logic_vector(DATA_WIDTH - 1 downto 0); -- Data input
+      read_addr: in std_logic_vector(ADDR_WIDTH - 1 downto 0);  -- read address input
+      write_addr: in std_logic_vector(ADDR_WIDTH - 1 downto 0);  -- write address input
+		data_in: in std_logic_vector(DATA_WIDTH - 1 downto 0); -- Data input
       write_enable: in std_logic;        -- Write enable signal
       data_out: out std_logic_vector(DATA_WIDTH - 1 downto 0) -- Data output
     );
@@ -36,7 +38,8 @@ begin
     )
     port map(
       clk => clk,
-      addr => addr,
+      read_addr => read_addr,
+		write_addr => write_addr,
       data_in => data_in,
       write_enable => write_enable,
       data_out => data_out
@@ -58,44 +61,52 @@ begin
   process
   begin
     -- Initialize testbench inputs
-    addr <= "00";
-    data_in <= (others => '0');
+    read_addr <= "00";
+    write_addr <= "00";
+	 data_in <= (others => '0');
     write_enable <= '0';
     
     -- Wait for a few clock cycles before starting the test
     wait for 5 ns;
     
-    -- Test Case 1: Write to register 0
-    addr <= "00";
-    data_in <= "101010101010";
+    -- Test Case 1: Write to 0
+    write_addr <= "00";
+    data_in <= "000000001111";
     write_enable <= '1';
     wait for 20ns;
-    
-    -- Test Case 2: Write to register 2
-    addr <= "10";
-    data_in <= "111100001111";
+	 
+    -- Test Case 2: Write to 1
+    write_addr <= "01";
+    data_in <= "000011110000";
     write_enable <= '1';
     wait for 20 ns;
     
-    -- Test Case 3: Read from register 0
-    addr <= "00";
-    write_enable <= '0';
+    -- Test Case 3: Write to 3 & Read from 1
+    read_addr <= "01";
+    write_addr <= "10";
+	 data_in <= "111100000000";
+	 write_enable <= '1';
 	 wait for 10ns;
-	 assert (data_out="101010101010") report "test_1 failed..." severity error;
+	 assert (data_out="000011110000") report "test_1 failed..." severity error;
     wait for 10 ns;
     
-    -- Test Case 4: Read from register 2
-    addr <= "10";
-    write_enable <= '0';
+	 --ideal
+	 write_enable <= '1';
+	 wait for 20ns;
+	 
+    -- Test Case 4: Read from 2 & Write to 3
+    read_addr <= "10";
+    write_addr <= "11";
+	 write_enable <= '1';
     wait for 10ns;
-	 assert (data_out="111100001111") report "test_2 failed..." severity error;
+	 assert (data_out="111100000000") report "test_2 failed..." severity error;
 	 wait for 10ns;
     
-	 -- Test Case 5: Read from register 1
-    addr <= "01";
+	 -- Test Case 5: Read from register 0
+    read_addr <= "00";
     write_enable <= '0';
     wait for 10ns;
-	 report "data_out is unknown...";
+	 assert (data_out="000000001111") report "test_3 failed..." severity error;
 	 wait for 10ns;
 	 
 	 
