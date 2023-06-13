@@ -1,0 +1,20 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity fifo_buffer is
+generic(
+	DATA_WIDTH: positive := 12;
+	ADDR_WIDTH: positive := 2
+);
+port(
+	clk: in std_logic;
+	reset: in std_logic;
+	
+	data_in: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	push: in std_logic;
+	pop: in std_logic;
+
+	data_out: out std_logic_vector(DATA_WIDTH - 1 downto 0);
+	full: out std_logic;
+	empty: out std_logic
+);
