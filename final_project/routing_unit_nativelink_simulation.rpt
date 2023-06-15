@@ -1,0 +1,131 @@
+Info: Start Nativelink Simulation process
+
+========= EDA Simulation Settings =====================
+
+Sim Mode              :  Gate
+Family                :  cycloneive
+Quartus root          :  c:/altera/13.1/quartus/bin64/
+Quartus sim root      :  c:/altera/13.1/quartus/eda/sim_lib
+Simulation Tool       :  modelsim-altera
+Simulation Language   :  vhdl
+Version               :  93
+Simulation Mode       :  GUI
+Sim Output File       :  routing_unit.vho
+Sim SDF file          :  routing_unit__vhdl.sdo
+Sim dir               :  simulation\modelsim
+
+=======================================================
+
+Info: Starting NativeLink simulation with ModelSim-Altera software
+Sourced NativeLink script c:/altera/13.1/quartus/common/tcl/internal/nativelink/modelsim.tcl
+Warning: File routing_unit_run_msim_gate_vhdl.do already exists - backing up current file as routing_unit_run_msim_gate_vhdl.do.bak
+Probing transcript
+ModelSim-Altera Info: # Reading C:/altera/15.0/modelsim_ase/tcl/vsim/pref.tcl
+ModelSim-Altera Info: # do routing_unit_run_msim_gate_vhdl.do
+ModelSim-Altera Info: # if {[file exists gate_work]} {
+ModelSim-Altera Info: # 	vdel -lib gate_work -all
+ModelSim-Altera Info: # }
+ModelSim-Altera Info: # vlib gate_work
+ModelSim-Altera Info: # vmap work gate_work
+ModelSim-Altera Info: # Model Technology ModelSim PE vmap 10.3d Lib Mapping Utility 2014.10 Oct  7 2014
+ModelSim-Altera Info: # vmap -modelsim_quiet work gate_work 
+ModelSim-Altera Info: # Copying C:/altera/15.0/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+ModelSim-Altera Info: # Modifying modelsim.ini
+ModelSim-Altera Warning: # ** Warning: Copied C:/altera/15.0/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini.
+ModelSim-Altera Info: #          Updated modelsim.ini.
+ModelSim-Altera Info: # 
+ModelSim-Altera Info: # vcom -93 -work work {routing_unit.vho}
+ModelSim-Altera Info: # Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+ModelSim-Altera Info: # Start time: 08:02:26 on Jun 15,2023
+ModelSim-Altera Info: # vcom -reportprogress 300 -93 -work work routing_unit.vho 
+ModelSim-Altera Info: # -- Loading package STANDARD
+ModelSim-Altera Info: # -- Loading package TEXTIO
+ModelSim-Altera Info: # -- Loading package std_logic_1164
+ModelSim-Altera Info: # -- Loading package VITAL_Timing
+ModelSim-Altera Info: # -- Loading package VITAL_Primitives
+ModelSim-Altera Info: # -- Loading package cycloneive_atom_pack
+ModelSim-Altera Info: # -- Loading package cycloneive_components
+ModelSim-Altera Info: # -- Compiling entity routing_unit
+ModelSim-Altera Info: # -- Compiling architecture structure of routing_unit
+ModelSim-Altera Info: # End time: 08:02:26 on Jun 15,2023, Elapsed time: 0:00:00
+ModelSim-Altera Info: # Errors: 0, Warnings: 0
+ModelSim-Altera Info: # 
+ModelSim-Altera Info: # vcom -93 -work work {C:/altera/13.1/final_project/test_routing_unit.vhd}
+ModelSim-Altera Info: # Model Technology ModelSim ALTERA vcom 10.3d Compiler 2014.10 Oct  7 2014
+ModelSim-Altera Info: # Start time: 08:02:26 on Jun 15,2023
+ModelSim-Altera Info: # vcom -reportprogress 300 -93 -work work C:/altera/13.1/final_project/test_routing_unit.vhd 
+ModelSim-Altera Info: # -- Loading package STANDARD
+ModelSim-Altera Info: # -- Loading package TEXTIO
+ModelSim-Altera Info: # -- Loading package std_logic_1164
+ModelSim-Altera Info: # -- Compiling entity test_routing_unit
+ModelSim-Altera Info: # -- Compiling architecture arch_test_routing_unit of test_routing_unit
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(78): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(82): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(84): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(88): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(90): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(94): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(96): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(100): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(102): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(106): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(108): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(112): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(114): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(118): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(120): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(124): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(126): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(130): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(132): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(136): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(138): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(142): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(144): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(148): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(150): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(154): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(156): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(160): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(162): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(166): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(168): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(172): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Warning: # ** Warning: [4] C:/altera/13.1/final_project/test_routing_unit.vhd(174): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+ModelSim-Altera Info: # End time: 08:02:27 on Jun 15,2023, Elapsed time: 0:00:01
+ModelSim-Altera Info: # Errors: 0, Warnings: 33
+ModelSim-Altera Info: # 
+ModelSim-Altera Info: # vsim -t 1ps +transport_int_delays +transport_path_delays -sdftyp /uut=routing_unit_vhd.sdo -L altera -L cycloneive -L gate_work -L work -voptargs="+acc"  test_routing_unit
+ModelSim-Altera Info: # vsim -gui -l msim_transcript -do "routing_unit_run_msim_gate_vhdl.do" 
+ModelSim-Altera Info: # Start time: 08:02:27 on Jun 15,2023
+ModelSim-Altera Info: # Loading std.standard
+ModelSim-Altera Info: # Loading std.textio(body)
+ModelSim-Altera Info: # Loading ieee.std_logic_1164(body)
+ModelSim-Altera Info: # Loading work.test_routing_unit(arch_test_routing_unit)
+ModelSim-Altera Info: # SDF 10.3d Compiler 2014.10 Oct  7 2014
+ModelSim-Altera Info: # 
+ModelSim-Altera Info: # Loading ieee.vital_timing(body)
+ModelSim-Altera Info: # Loading ieee.vital_primitives(body)
+ModelSim-Altera Info: # Loading cycloneive.cycloneive_atom_pack(body)
+ModelSim-Altera Info: # Loading cycloneive.cycloneive_components
+ModelSim-Altera Info: # Loading work.routing_unit(structure)
+ModelSim-Altera Info: # Loading ieee.std_logic_arith(body)
+ModelSim-Altera Info: # Loading cycloneive.cycloneive_io_obuf(arch)
+ModelSim-Altera Info: # Loading cycloneive.cycloneive_io_ibuf(arch)
+ModelSim-Altera Info: # Loading cycloneive.cycloneive_lcell_comb(vital_lcell_comb)
+ModelSim-Altera Info: # Loading instances from routing_unit_vhd.sdo
+ModelSim-Altera Info: # Loading timing data from routing_unit_vhd.sdo
+ModelSim-Altera Info: # ** Note: (vsim-3587) SDF Backannotation Successfully Completed.
+ModelSim-Altera Info: #    Time: 0 ps  Iteration: 0  Instance: /test_routing_unit File: C:/altera/13.1/final_project/test_routing_unit.vhd
+ModelSim-Altera Info: # 
+ModelSim-Altera Info: # add wave *
+ModelSim-Altera Info: # view structure
+ModelSim-Altera Info: # .main_pane.structure.interior.cs.body.struct
+ModelSim-Altera Info: # view signals
+ModelSim-Altera Info: # .main_pane.objects.interior.cs.body.tree
+ModelSim-Altera Info: # run 500 ns
+ModelSim-Altera Info: # ** Note: 5 -> 5; testbench: packet should be dropped
+ModelSim-Altera Info: #    Time: 240 ns  Iteration: 0  Instance: /test_routing_unit
+ModelSim-Altera Info: # End time: 08:03:32 on Jun 15,2023, Elapsed time: 0:01:05
+ModelSim-Altera Info: # Errors: 0, Warnings: 0
+Info: NativeLink simulation flow was successful
