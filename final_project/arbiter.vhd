@@ -130,7 +130,7 @@ begin
 
 	
 	--next state register
-	process(reg_state_w, reg_state_x, reg_state_y, reg_state_z)
+	process(reg_state_w, reg_state_x, reg_state_y, reg_state_z, req_1, req_2, req_3, req_4)
 	
 	begin
 		-- default value of controlling signals of input_buffers
