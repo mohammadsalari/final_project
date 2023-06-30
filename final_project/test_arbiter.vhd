@@ -1,0 +1,210 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+
+entity test_arbiter is
+end entity;
+
+architecture arch_test_arbiter of test_arbiter is
+	constant DATA_WIDTH: positive := 12;
+	
+component arbiter is
+generic(
+	DATA_WIDTH: positive := 12
+);
+port (
+	clk: 		in std_logic;
+	reset: 	in std_logic;
+	
+	data_1: 	in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	req_1: 	in std_logic;
+	dst_1: 	in std_logic_vector(1 downto 0);
+	grant_1:	out std_logic;
+	
+	data_2: 	in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	req_2: 	in std_logic;
+	dst_2: 	in std_logic_vector(1 downto 0);
+	grant_2:	out std_logic;
+	
+	data_3: 	in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	req_3: 	in std_logic;
+	dst_3: 	in std_logic_vector(1 downto 0);
+	grant_3:	out std_logic;
+	
+	data_4:	in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	req_4: 	in std_logic;
+	dst_4: 	in std_logic_vector(1 downto 0);
+	grant_4:	out std_logic;
+	
+	
+	w_is_ready:	in std_logic;
+	data_w: 		out std_logic_vector(DATA_WIDTH - 1 downto 0);
+	req_to_w: 	out std_logic;
+	
+	x_is_ready:	in std_logic;
+	data_x: 		out std_logic_vector(DATA_WIDTH - 1 downto 0);
+	req_to_x: 	out std_logic;
+	
+	y_is_ready:	in std_logic;
+	data_y: 		out std_logic_vector(DATA_WIDTH - 1 downto 0);
+	req_to_y: 	out std_logic;
+	
+	z_is_ready:	in std_logic;
+	data_z: 		out std_logic_vector(DATA_WIDTH - 1 downto 0);
+	req_to_z: 	out std_logic	
+);
+end component;
+
+	signal clk: 		std_logic;
+	signal reset: 		std_logic;
+	
+	signal data_1: 	std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal req_1: 		std_logic;
+	signal dst_1: 		std_logic_vector(1 downto 0);
+	signal grant_1:	std_logic;
+	
+	signal data_2: 	std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal req_2: 		std_logic;
+	signal dst_2: 		std_logic_vector(1 downto 0);
+	signal grant_2:	std_logic;
+	
+	signal data_3: 	std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal req_3: 		std_logic;
+	signal dst_3: 		std_logic_vector(1 downto 0);
+	signal grant_3:	std_logic;
+	
+	signal data_4:		std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal req_4: 		std_logic;
+	signal dst_4: 		std_logic_vector(1 downto 0);
+	signal grant_4:	std_logic;
+	
+	
+	signal w_is_ready:	std_logic;
+	signal data_w: 		std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal req_to_w: 		std_logic;
+	
+	signal x_is_ready:	std_logic;
+	signal data_x: 		std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal req_to_x: 		std_logic;
+	
+	signal y_is_ready:	std_logic;
+	signal data_y: 		std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal req_to_y: 		std_logic;
+	
+	signal z_is_ready:	std_logic;
+	signal data_z: 		std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal req_to_z: 		std_logic;
+
+begin
+
+uut: arbiter
+	generic map(DATA_WIDTH => DATA_WIDTH)
+	port map(clk => clk, reset => reset,
+		data_1 => data_1, data_2 => data_2, data_3 => data_3, data_4 => data_4,
+		dst_1 => dst_1, dst_2 => dst_2, dst_3 => dst_3, dst_4 => dst_4,
+		req_1 => req_1, req_2 => req_2, req_3 => req_3, req_4 => req_4,
+		w_is_ready => w_is_ready, x_is_ready => x_is_ready, y_is_ready => y_is_ready, z_is_ready => z_is_ready,
+		grant_1 => grant_1, grant_2 => grant_2, grant_3 => grant_3, grant_4 => grant_4,
+		req_to_w => req_to_w, req_to_x => req_to_x, req_to_y => req_to_y, req_to_z => req_to_z,
+		data_w => data_w, data_x => data_x, data_y => data_y, data_z => data_z
+	);
+	
+	process
+	begin
+		clk <= '0';
+		wait for 10ns;
+		clk <= '1';
+		wait for 10ns;
+	end process;
+	
+	process
+	begin
+	
+		reset <= '1';
+		wait for 15ns;
+		reset <= '0';
+		wait for 10ns;
+		-- fifo_w is in w1
+		-- fifo_x is in x1
+		-- fifo_y is in y1
+		-- fifo_z is in z1
+		
+		wait for 20ns;
+		
+		wait for 20ns;
+		-- fifo_1 wants to send packet to fifo_x
+		data_1 <= "000000000001";
+		dst_1 <= "01";
+		req_1 <= '1';
+		x_is_ready <= '1';
+		
+		-- fifo_2 wants to send packet to fifo_w
+		data_2 <= "000000000011";
+		dst_2 <= "00";
+		req_2 <= '1';
+		w_is_ready <= '1';
+		
+		-- fifo_3 wants to send packet to fifo_x
+		data_3 <= "000000000111";
+		dst_3 <= "01";
+		req_3 <= '1';
+		x_is_ready <= '1';
+		
+		-- fifo_4 there is not valid packet
+		data_4 <= "000000001111";
+		dst_4 <= "11";
+		req_4 <= '0';
+		z_is_ready <= '1';
+		
+		
+		-- fifo_w is in w2
+		-- fifo_x is in x2
+		-- fifo_y is in y2
+		-- fifo_z is in z2
+		
+		wait for 20ns;
+		
+		assert (grant_1='0')						report ("test_1_grant_1 failed ...") 	severity error;
+		
+		assert (grant_2='1') 					report ("test_1_grant_2 failed") 		severity error;
+		assert (req_to_w='1')					report ("test_1_req_to_w failed") 		severity error;
+		assert (data_w="000000000011")		report ("test_1_data_w failed") 			severity error;
+		
+		assert (grant_3='0')						report ("test_1_grant_3 failed ...") 	severity error;
+		assert (grant_4='0')						report ("test_1_grant_4 failed ...") 	severity error;
+		
+		-- data_x is not important
+		assert (req_to_x='0')					report ("test_1_req_to_x failed") 		severity error;
+		-- data_y is not important
+		assert (req_to_y='0')					report ("test_1_req_to_y failed") 		severity error;
+		-- data_z is not important
+		assert (req_to_z='0')					report ("test_1_req_to_z failed") 		severity error;
+		
+		-- fifo_w is in w3
+		-- fifo_x is in x3
+		-- fifo_y is in y3
+		-- fifo_z is in z3
+		
+		wait for 20ns;
+		
+		assert (grant_1='0')						report ("test_1_grant_1 failed ...") 	severity error;
+		assert (grant_2='0') 					report ("test_1_grant_2 failed") 		severity error;
+		
+		assert (grant_3='0')						report ("test_1_grant_3 failed ...") 	severity error;
+		assert (req_to_x='1')					report ("test_1_req_to_x failed") 		severity error;
+		assert (data_x="000000000111")		report ("test_1_data_x failed") 			severity error;
+		
+		assert (grant_4='0')						report ("test_1_grant_4 failed ...") 	severity error;
+		
+		-- data_w is not important
+		assert (req_to_w='1')					report ("test_1_req_to_w failed") 		severity error;
+		
+		-- data_y is not important
+		assert (req_to_y='0')					report ("test_1_req_to_y failed") 		severity error;
+		-- data_z is not important
+		assert (req_to_z='0')					report ("test_1_req_to_z failed") 		severity error;
+		
+		wait;
+		
+	end process;
+end architecture;
