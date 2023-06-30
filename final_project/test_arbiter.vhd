@@ -121,88 +121,66 @@ uut: arbiter
 	begin
 	
 		reset <= '1';
+		req_1 <= '0';
+		req_2 <= '0';
+		req_3 <= '0';
+		req_4 <= '0';
 		wait for 15ns;
 		reset <= '0';
 		wait for 10ns;
-		-- fifo_w is in w1
-		-- fifo_x is in x1
-		-- fifo_y is in y1
-		-- fifo_z is in z1
 		
-		wait for 20ns;
-		
-		wait for 20ns;
-		-- fifo_1 wants to send packet to fifo_x
-		data_1 <= "000000000001";
-		dst_1 <= "01";
-		req_1 <= '1';
+		-- fifo_2 wants to send packet to fifo_x
+		data_2 <= "000000000010";
+		dst_2 <= "01";
+		req_2 <= '1';
 		x_is_ready <= '1';
 		
-		-- fifo_2 wants to send packet to fifo_w
-		data_2 <= "000000000011";
-		dst_2 <= "00";
-		req_2 <= '1';
+		-- fifo_3 wants to send packet to fifo_w
+		data_3 <= "000000000011";
+		dst_3 <= "00";
+		req_3 <= '1';
 		w_is_ready <= '1';
 		
-		-- fifo_3 wants to send packet to fifo_x
-		data_3 <= "000000000111";
-		dst_3 <= "01";
-		req_3 <= '1';
-		x_is_ready <= '1';
 		
-		-- fifo_4 there is not valid packet
-		data_4 <= "000000001111";
-		dst_4 <= "11";
-		req_4 <= '0';
-		z_is_ready <= '1';
+		wait for 10ns;
 		
-		
-		-- fifo_w is in w2
-		-- fifo_x is in x2
-		-- fifo_y is in y2
-		-- fifo_z is in z2
+		assert (grant_2='0')						report ("test_1_grant_2 failed ...") 		severity error;
+		assert (grant_3='0')						report ("test_1_grant_3 failed ...") 		severity error;
 		
 		wait for 20ns;
 		
-		assert (grant_1='0')						report ("test_1_grant_1 failed ...") 	severity error;
+		assert (grant_2='1')						report ("test_2_grant_2 failed ...") 		severity error;
+		assert (grant_3='0')						report ("test_2_grant_3 failed ...") 		severity error;
 		
-		assert (grant_2='1') 					report ("test_1_grant_2 failed") 		severity error;
-		assert (req_to_w='1')					report ("test_1_req_to_w failed") 		severity error;
-		assert (data_w="000000000011")		report ("test_1_data_w failed") 			severity error;
+		assert (req_to_x='1')					report ("test_2_req_to_x failed ...") 		severity error;
+		assert (req_to_w='0')					report ("test_2_req_to_w failed ...") 		severity error;
 		
-		assert (grant_3='0')						report ("test_1_grant_3 failed ...") 	severity error;
-		assert (grant_4='0')						report ("test_1_grant_4 failed ...") 	severity error;
+		assert (data_x="000000000010")		report ("test_2_data_x failed ...") 		severity error;
 		
-		-- data_x is not important
-		assert (req_to_x='0')					report ("test_1_req_to_x failed") 		severity error;
-		-- data_y is not important
-		assert (req_to_y='0')					report ("test_1_req_to_y failed") 		severity error;
-		-- data_z is not important
-		assert (req_to_z='0')					report ("test_1_req_to_z failed") 		severity error;
-		
-		-- fifo_w is in w3
-		-- fifo_x is in x3
-		-- fifo_y is in y3
-		-- fifo_z is in z3
+		req_2 <= '0';
 		
 		wait for 20ns;
 		
-		assert (grant_1='0')						report ("test_1_grant_1 failed ...") 	severity error;
-		assert (grant_2='0') 					report ("test_1_grant_2 failed") 		severity error;
+		assert (grant_2='0')						report ("test_3_grant_2 failed ...") 		severity error;
+		assert (grant_3='1')						report ("test_3_grant_3 failed ...") 		severity error;
 		
-		assert (grant_3='0')						report ("test_1_grant_3 failed ...") 	severity error;
-		assert (req_to_x='1')					report ("test_1_req_to_x failed") 		severity error;
-		assert (data_x="000000000111")		report ("test_1_data_x failed") 			severity error;
+		assert (req_to_x='0')					report ("test_3_req_to_x failed ...") 		severity error;
+		assert (req_to_w='1')					report ("test_3_req_to_w failed ...") 		severity error;
+		assert (data_w="000000000011")		report ("test_3_data_w failed ...") 		severity error;
 		
-		assert (grant_4='0')						report ("test_1_grant_4 failed ...") 	severity error;
+		req_3 <= '0';
 		
-		-- data_w is not important
-		assert (req_to_w='1')					report ("test_1_req_to_w failed") 		severity error;
+		wait for 20ns;
 		
-		-- data_y is not important
-		assert (req_to_y='0')					report ("test_1_req_to_y failed") 		severity error;
-		-- data_z is not important
-		assert (req_to_z='0')					report ("test_1_req_to_z failed") 		severity error;
+		assert (grant_1='0')						report ("test_4_grant_1 failed ...") 		severity error;
+		assert (grant_2='0')						report ("test_4_grant_2 failed ...") 		severity error;
+		assert (grant_3='0')						report ("test_4_grant_3 failed ...") 		severity error;
+		assert (grant_4='0')						report ("test_4_grant_4 failed ...") 		severity error;
+		
+		assert (req_to_w='0')					report ("test_4_req_to_w failed ...") 		severity error;
+		assert (req_to_x='0')					report ("test_4_req_to_x failed ...") 		severity error;
+		assert (req_to_y='0')					report ("test_4_req_to_y failed ...") 		severity error;
+		assert (req_to_z='0')					report ("test_4_req_to_z failed ...") 		severity error;
 		
 		wait;
 		
