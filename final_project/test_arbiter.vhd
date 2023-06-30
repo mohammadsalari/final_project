@@ -112,9 +112,9 @@ uut: arbiter
 	process
 	begin
 		clk <= '0';
-		wait for 10ns;
+		wait for 100ns;
 		clk <= '1';
-		wait for 10ns;
+		wait for 100ns;
 	end process;
 	
 	process
@@ -125,9 +125,9 @@ uut: arbiter
 		req_2 <= '0';
 		req_3 <= '0';
 		req_4 <= '0';
-		wait for 15ns;
+		wait for 150ns;
 		reset <= '0';
-		wait for 10ns;
+		wait for 100ns;
 		
 		-- fifo_2 wants to send packet to fifo_x
 		data_2 <= "000000000010";
@@ -142,12 +142,12 @@ uut: arbiter
 		w_is_ready <= '1';
 		
 		
-		wait for 10ns;
+		wait for 100ns;
 		
 		assert (grant_2='0')						report ("test_1_grant_2 failed ...") 		severity error;
 		assert (grant_3='0')						report ("test_1_grant_3 failed ...") 		severity error;
 		
-		wait for 20ns;
+		wait for 200ns;
 		
 		assert (grant_2='1')						report ("test_2_grant_2 failed ...") 		severity error;
 		assert (grant_3='0')						report ("test_2_grant_3 failed ...") 		severity error;
@@ -159,7 +159,7 @@ uut: arbiter
 		
 		req_2 <= '0';
 		
-		wait for 20ns;
+		wait for 200ns;
 		
 		assert (grant_2='0')						report ("test_3_grant_2 failed ...") 		severity error;
 		assert (grant_3='1')						report ("test_3_grant_3 failed ...") 		severity error;
@@ -170,7 +170,7 @@ uut: arbiter
 		
 		req_3 <= '0';
 		
-		wait for 20ns;
+		wait for 200ns;
 		
 		assert (grant_1='0')						report ("test_4_grant_1 failed ...") 		severity error;
 		assert (grant_2='0')						report ("test_4_grant_2 failed ...") 		severity error;
