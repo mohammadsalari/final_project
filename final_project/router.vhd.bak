@@ -1,0 +1,23 @@
+-- In the Name of God
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity router is
+generic(
+	DATA_WIDTH: positive := 12
+);
+port(
+	route_1: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	route_2: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	route_3: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	route_4: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	
+	data_1: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	data_2: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	data_3: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	data_4: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	
+	
+)
+end entity;
