@@ -1,0 +1,42 @@
+-- In the Name of God
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity node_5 is
+generic(DATA_WIDTH: positive := 12)
+port map(
+	clk: 			in std_logic;
+	reset: 		in std_logic;
+	
+	-- input signals to the node
+	data_in_1: 	in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	push_1: 		in std_logic;
+	pop_1: 		in std_logic;
+	
+	data_in_2: 	in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	push_2: 		in std_logic;
+	pop_2: 		in std_logic;
+	
+	data_in_3: 	in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	push_3: 		in std_logic;
+	pop_3: 		in std_logic;
+	
+	data_in_4: 	in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	push_4: 		in std_logic;
+	pop_4: 		in std_logic;
+	
+	--full signals specify the state of adjacent router(they come from adjacent routers)
+	full_w: in std_logic;
+	full_x: in std_logic;
+	full_y: in std_logic;
+	full_z: in std_logic;
+	
+	--output signals from the node(they will connected to adjacent routers)
+	
+	
+	
+	
+	
+);
+end entity;
