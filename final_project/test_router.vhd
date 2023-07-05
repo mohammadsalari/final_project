@@ -150,9 +150,9 @@ port map (
 	process
 	begin
 		tb_clk <= '0';
-		wait for 10ns;
+		wait for 100ns;
 		tb_clk <= '1';
-		wait for 10ns;
+		wait for 100ns;
 	end process;
 	
 	process
@@ -163,47 +163,66 @@ port map (
 		tb_req_2 <= '0';
 		tb_req_3 <= '0';
 		tb_req_4 <= '0';
-		wait for 15ns;
+		wait for 150ns;
 		tb_reset <= '0';
-		wait for 10ns;
+		wait for 100ns;
 		
-		-- fifo_2 wants to send packet to fifo_x
-		-- src=5=00101 dst=6=00110
+		-- fifo_1 : data="110010100110" [type=11 src=5=00101 dst=6=00110]
 		tb_data_1 <= "110010100110";
 		tb_route_1 <= "0010100110";
 		tb_req_1 <= '1';
-		tb_x_is_ready <= '1';
+		tb_w_is_ready <= '1'; -- the packet will be trasfered to fifo_w
 		
-		-- only route 1 is implemented
+		-- fifo_2 : data="110011100001" [type=11 src=7=00111 dst=1=00001]
+		tb_data_2 <= "110011100001";
+		tb_route_2 <= "0011100001";
+		tb_req_2 <= '1';
+		tb_z_is_ready <= '1'; -- the packet will be trasfered to fifo_z
 		
-		wait for 10ns;
 		
-		assert (tb_pop_1='0')						report ("test_1_pop_2 failed ...") 		severity error;
+		-- fifo_3 : data="110010001010" [type=11 src=4=00100 dst=10=01010]
+		tb_data_3 <= "110010001010";
+		tb_route_3 <= "0010001010";
+		tb_req_3 <= '1';
+		tb_y_is_ready <= '1'; -- the packet will be trasfered to fifo_y
 		
-		wait for 20ns;
-		wait for 20ns;
-		wait for 20ns;
-		wait for 20ns;
+		wait for 200ns; -- pop_1=>1 and req_to_w=>1
+		assert (tb_pop_1='1')							report ("test_clk1_pop_1 failed ...") 			severity error;
+		assert (tb_req_to_w='1')						report ("test_clk1_req_to_w failed ...") 		severity error;
+		assert (tb_data_in_w="110010100110")		report ("test_clk1_data_in_w failed ...") 	severity note;
 		
-		assert (tb_pop_1='1')						report ("test_2_pop_1 failed ...") 		severity error;
+		wait for 200ns; -- pop_1=>0 and pop_2=>1, req_to_w=>0 and req_to_z=>1
+		assert (tb_pop_1='0')							report ("test_clk2_pop_1 failed ...") 			severity error;
+		assert (tb_req_to_w='0')						report ("test_clk2_req_to_w failed ...") 		severity error;
+		--
+		assert (tb_pop_2='1')							report ("test_clk2_pop_2 failed ...") 			severity error;
+		assert (tb_req_to_z='1')						report ("test_clk2_req_to_z failed ...") 		severity error;
+		assert (tb_data_in_z="110011100001")		report ("test_clk2_data_in_z failed ...") 	severity note;
 		
-		assert (tb_req_to_x='1')					report ("test_2_req_to_x failed ...") 		severity error;
+		wait for 200ns; -- pop_3=>1 and pop_2=>0, req_to_z 0 and req_to_y 1 --> bug: z doesnt change to zero, pop_2 doesnt change to zero
+		assert (tb_pop_2='0')							report ("test_clk3_pop_2 failed ...") 			severity error;
+		assert (tb_req_to_z='0')						report ("test_clk3_req_to_z failed ...") 		severity error;
+		--
+		assert (tb_pop_3='1')							report ("test_clk3_pop_3 failed ...") 			severity error;
+		assert (tb_data_in_y="110010001010")		report ("test_clk3_data_y failed ...") 		severity error;
+		assert (tb_req_to_y='1')						report ("test_clk3_req_to_y failed ...") 		severity error;
 		
-		assert (tb_data_in_x="110010100110")		report ("test_2_data_x failed ...") 		severity error;
+		wait for 200ns; -- pop_3=>0, req_to_y 0
+		assert (tb_pop_1='0')							report ("test_clk4_pop_1 failed ...") 			severity error;
+		assert (tb_pop_2='0')							report ("test_clk4_pop_2 failed ...") 			severity error;
+		assert (tb_pop_3='0')							report ("test_clk4_pop_3 failed ...") 			severity error;
+		assert (tb_pop_4='0')							report ("test_clk4_pop_4 failed ...") 			severity error;
+		assert (tb_req_to_w='0')						report ("test_clk4_req_to_z failed ...") 		severity error;
+		assert (tb_req_to_x='0')						report ("test_clk4_req_to_z failed ...") 		severity error;
+		assert (tb_req_to_y='0')						report ("test_clk4_req_to_z failed ...") 		severity error;
+		assert (tb_req_to_z='0')						report ("test_clk4_req_to_z failed ...") 		severity error;
+		
+		
 		
 		tb_req_1 <= '0';
-		
-		wait for 20ns;
-		
-		assert (tb_pop_1='0')						report ("test_3_pop_1 failed ...") 		severity error;
-		assert (tb_pop_2='0')						report ("test_3_pop_2 failed ...") 		severity error;
-		assert (tb_pop_3='0')						report ("test_3_pop_3 failed ...") 		severity error;
-		assert (tb_pop_4='0')						report ("test_3_pop_4 failed ...") 		severity error;
-		
-		assert (tb_req_to_w='0')					report ("test_3_req_to_w failed ...") 		severity error;
-		assert (tb_req_to_x='0')					report ("test_3_req_to_x failed ...") 		severity error;
-		assert (tb_req_to_y='0')					report ("test_3_req_to_y failed ...") 		severity error;
-		assert (tb_req_to_z='0')					report ("test_3_req_to_z failed ...") 		severity error;
+		tb_req_2 <= '0';
+		tb_req_3 <= '0';
+		tb_req_4 <= '0';
 		
 		wait;
 		
