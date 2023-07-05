@@ -84,21 +84,21 @@ begin
 	wait for 20ns;
 	
 	-- 5 -> 1
-	route_1 <= N5 & N1;
+	route_2 <= N5 & N1;
 	wait for 20ns;
-	assert (next_1 = W) report "5 -> 1 failed" severity error;
+	assert (next_2 = W) report "5 -> 1 failed" severity error;
 	wait for 20ns;
 	
 	-- 5 -> 2
-	route_1 <= N5 & N2;
+	route_3 <= N5 & N2;
 	wait for 20ns;
-	assert (next_1 = W) report "5 -> 2 failed" severity error;
+	assert (next_3 = W) report "5 -> 2 failed" severity error;
 	wait for 20ns;
 	
 	-- 5 -> 3
-	route_1 <= N5 & N3;
+	route_4 <= N5 & N3;
 	wait for 20ns;
-	assert (next_1 = W) report "5 -> 3 failed" severity error;
+	assert (next_4 = W) report "5 -> 3 failed" severity error;
 	wait for 20ns;
 	
 	-- 5 -> 4
@@ -108,21 +108,21 @@ begin
 	wait for 20ns;
 	
 	-- 5 -> 5
-	route_1 <= N5 & N5;
+	route_2 <= N5 & N5;
 	wait for 20ns;
 	report "5 -> 5; testbench: packet should be dropped" severity note;
 	wait for 20ns;
 	
 	-- 5 -> 6
-	route_1 <= N5 & N6;
+	route_3 <= N5 & N6;
 	wait for 20ns;
-	assert (next_1 = X) report "5 -> 6 failed" severity error;
+	assert (next_3 = X) report "5 -> 6 failed" severity error;
 	wait for 20ns;
 	
 	-- 5 -> 7
-	route_1 <= N5 & N7;
+	route_4 <= N5 & N7;
 	wait for 20ns;
-	assert (next_1 = X) report "5 -> 7 failed" severity error;
+	assert (next_4 = X) report "5 -> 7 failed" severity error;
 	wait for 20ns;
 	
 	-- 5 -> 8
@@ -132,21 +132,21 @@ begin
 	wait for 20ns;
 	
 	-- 5 -> 9
-	route_1 <= N5 & N9;
+	route_2 <= N5 & N9;
 	wait for 20ns;
-	assert (next_1 = Y) report "5 -> 9 failed" severity error;
+	assert (next_2 = Y) report "5 -> 9 failed" severity error;
 	wait for 20ns;
 	
 	-- 5 -> 10
-	route_1 <= N5 & N10;
+	route_3 <= N5 & N10;
 	wait for 20ns;
-	assert (next_1 = Y) report "5 -> 10 failed" severity error;
+	assert (next_3 = Y) report "5 -> 10 failed" severity error;
 	wait for 20ns;
 	
 	-- 5 -> 11
-	route_1 <= N5 & N11;
+	route_4 <= N5 & N11;
 	wait for 20ns;
-	assert (next_1 = Y) report "5 -> 11 failed" severity error;
+	assert (next_4 = Y) report "5 -> 11 failed" severity error;
 	wait for 20ns;
 	
 	-- 5 -> 12
@@ -156,21 +156,21 @@ begin
 	wait for 20ns;
 	
 	-- 5 -> 13
-	route_1 <= N5 & N13;
+	route_2 <= N5 & N13;
 	wait for 20ns;
-	assert (next_1 = Y) report "5 -> 13 failed" severity error;
+	assert (next_2 = Y) report "5 -> 13 failed" severity error;
 	wait for 20ns;
 	
 	-- 5 -> 14
-	route_1 <= N5 & N14;
+	route_3 <= N5 & N14;
 	wait for 20ns;
-	assert (next_1 = Y) report "5 -> 14 failed" severity error;
+	assert (next_3 = Y) report "5 -> 14 failed" severity error;
 	wait for 20ns;
 	
 	-- 5 -> 15
-	route_1 <= N5 & N15;
+	route_4 <= N5 & N15;
 	wait for 20ns;
-	assert (next_1 = Y) report "5 -> 15 failed" severity error;	
+	assert (next_4 = Y) report "5 -> 15 failed" severity error;	
 	wait for 20ns;
 	
 	wait;
