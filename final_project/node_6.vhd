@@ -3,7 +3,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity node_5 is
+entity node_6 is
 generic(DATA_WIDTH: positive := 12; ADDR_WIDTH: positive := 2);
 port(
 	clk: 			in std_logic;
@@ -43,7 +43,7 @@ port(
 end entity;
 
 
-architecture arch_node_5 of node_5 is
+architecture arch_node_6 of node_6 is
 	
 	component fifo_buffer is
 	generic(
@@ -212,7 +212,7 @@ internal_req_2 <= not internal_empty_2;
 internal_full_z <= not full_z;
 
 
-internal_route_3 <= "0011"&internal_data_out_3(4 downto 0);
+internal_route_3 <= "00110"&internal_data_out_3(4 downto 0);
 internal_req_3 <= not internal_empty_3;
 internal_full_y <= not full_y;
 
