@@ -287,7 +287,7 @@ begin
 						next_req_to_z <= '1';
 						next_grant_2 <= '1';
 					end if;
-					next_state_w <= w3;
+					next_state_z <= z3;
 				
 				when z3 =>
 					if(req_3 = '1' and dst_3 = Z) then 	
