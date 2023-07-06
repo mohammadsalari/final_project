@@ -129,33 +129,43 @@ uut: arbiter
 		reset <= '0';
 		wait for 100ns;
 		
-		-- fifo_2 wants to send packet to fifo_x
-		data_2 <= "000000000010";
-		dst_2 <= "01";
-		req_2 <= '1';
-		x_is_ready <= '1';
-		
-		-- fifo_3 wants to send packet to fifo_w
-		data_3 <= "000000000011";
-		dst_3 <= "00";
-		req_3 <= '1';
-		w_is_ready <= '1';
-		
-		
-		wait for 100ns;
-		
-		assert (grant_2='0')						report ("test_1_grant_2 failed ...") 		severity error;
-		assert (grant_3='0')						report ("test_1_grant_3 failed ...") 		severity error;
+		 -- fifo_1 : data="110010100110" [type=11 src=5=00101 dst=6=00110]
+       data_1 <= "110010100110";
+       dst_1 <= "01";
+		 req_1 <= '1';
+       x_is_ready <= '1'; -- the packet will be trasfered to fifo_x
+
+       -- fifo_2 : data="110011100001" [type=11 src=7=00111 dst=1=00001]
+       data_2 <= "110011100001";
+       dst_2 <= "11";
+		 req_2 <= '1';
+       z_is_ready <= '1'; -- the packet will be trasfered to fifo_z
+
+
+       -- fifo_3 : data="110010001010" [type=11 src=4=00100 dst=10=01010]
+       data_3 <= "110010001010";
+       dst_3 <= "10";
+		 req_3 <= '1';
+       y_is_ready <= '1'; -- the packet will be trasfered to fifo_y
+
 		
 		wait for 200ns;
 		
-		assert (grant_2='1')						report ("test_2_grant_2 failed ...") 		severity error;
-		assert (grant_3='0')						report ("test_2_grant_3 failed ...") 		severity error;
+		assert (grant_1='1')						report ("test_clk1_grant_1 failed ...") 		severity error;
 		
 		assert (req_to_x='1')					report ("test_2_req_to_x failed ...") 		severity error;
-		assert (req_to_w='0')					report ("test_2_req_to_w failed ...") 		severity error;
 		
-		assert (data_x="000000000010")		report ("test_2_data_x failed ...") 		severity error;
+		assert (data_x="110010100110")		report ("test_2_data_x failed ...") 		severity error;
+		
+		req_1 <= '0';
+		
+		wait for 200ns;
+		
+		assert (grant_1='0')						report ("test_3_grant_2 failed ...") 		severity error;
+		assert (grant_2='1')						report ("test_3_grant_3 failed ...") 		severity error;
+		
+		assert (req_to_z='1')					report ("test_3_req_to_x failed ...") 		severity error;
+		assert (data_z="110011100001")		report ("test_3_data_w failed ...") 		severity error;
 		
 		req_2 <= '0';
 		
@@ -164,13 +174,13 @@ uut: arbiter
 		assert (grant_2='0')						report ("test_3_grant_2 failed ...") 		severity error;
 		assert (grant_3='1')						report ("test_3_grant_3 failed ...") 		severity error;
 		
-		assert (req_to_x='0')					report ("test_3_req_to_x failed ...") 		severity error;
-		assert (req_to_w='1')					report ("test_3_req_to_w failed ...") 		severity error;
-		assert (data_w="000000000011")		report ("test_3_data_w failed ...") 		severity error;
+		assert (req_to_y='1')					report ("test_3_req_to_x failed ...") 		severity error;
+		assert (data_y="110010001010")		report ("test_3_data_w failed ...") 		severity error;
 		
 		req_3 <= '0';
 		
 		wait for 200ns;
+		
 		
 		assert (grant_1='0')						report ("test_4_grant_1 failed ...") 		severity error;
 		assert (grant_2='0')						report ("test_4_grant_2 failed ...") 		severity error;
