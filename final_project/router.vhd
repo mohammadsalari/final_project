@@ -122,7 +122,7 @@ architecture arch_router of router is
 	signal internal_dst_2: std_logic_vector(1 downto 0);
 	signal internal_dst_3: std_logic_vector(1 downto 0);
 	signal internal_dst_4: std_logic_vector(1 downto 0);
-	
+		
 begin
 
 lbl_routing_unit: routing_unit
