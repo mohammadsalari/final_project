@@ -171,7 +171,7 @@ port map (
 		tb_data_1 <= "110010100110";
 		tb_route_1 <= "0010100110";
 		tb_req_1 <= '1';
-		tb_w_is_ready <= '1'; -- the packet will be trasfered to fifo_w
+		tb_x_is_ready <= '1'; -- the packet will be trasfered to fifo_x
 		
 		-- fifo_2 : data="110011100001" [type=11 src=7=00111 dst=1=00001]
 		tb_data_2 <= "110011100001";
@@ -186,18 +186,20 @@ port map (
 		tb_req_3 <= '1';
 		tb_y_is_ready <= '1'; -- the packet will be trasfered to fifo_y
 		
-		wait for 200ns; -- pop_1=>1 and req_to_w=>1
+		wait for 200ns; -- pop_1=>1 and req_to_x=>1
 		assert (tb_pop_1='1')							report ("test_clk1_pop_1 failed ...") 			severity error;
-		assert (tb_req_to_w='1')						report ("test_clk1_req_to_w failed ...") 		severity error;
-		assert (tb_data_in_w="110010100110")		report ("test_clk1_data_in_w failed ...") 	severity note;
+		assert (tb_req_to_x='1')						report ("test_clk1_req_to_x failed ...") 		severity error;
+		assert (tb_data_in_x="110010100110")		report ("test_clk1_data_in_x failed ...") 	severity error;
+		tb_req_1 <= '0';
 		
 		wait for 200ns; -- pop_1=>0 and pop_2=>1, req_to_w=>0 and req_to_z=>1
 		assert (tb_pop_1='0')							report ("test_clk2_pop_1 failed ...") 			severity error;
-		assert (tb_req_to_w='0')						report ("test_clk2_req_to_w failed ...") 		severity error;
+		assert (tb_req_to_x='0')						report ("test_clk2_req_to_x failed ...") 		severity error;
 		--
 		assert (tb_pop_2='1')							report ("test_clk2_pop_2 failed ...") 			severity error;
 		assert (tb_req_to_z='1')						report ("test_clk2_req_to_z failed ...") 		severity error;
 		assert (tb_data_in_z="110011100001")		report ("test_clk2_data_in_z failed ...") 	severity note;
+		tb_req_2 <= '0';
 		
 		wait for 200ns; -- pop_3=>1 and pop_2=>0, req_to_z 0 and req_to_y 1 --> bug: z doesnt change to zero, pop_2 doesnt change to zero
 		assert (tb_pop_2='0')							report ("test_clk3_pop_2 failed ...") 			severity error;
@@ -206,6 +208,7 @@ port map (
 		assert (tb_pop_3='1')							report ("test_clk3_pop_3 failed ...") 			severity error;
 		assert (tb_data_in_y="110010001010")		report ("test_clk3_data_y failed ...") 		severity error;
 		assert (tb_req_to_y='1')						report ("test_clk3_req_to_y failed ...") 		severity error;
+		tb_req_3 <= '0';
 		
 		wait for 200ns; -- pop_3=>0, req_to_y 0
 		assert (tb_pop_1='0')							report ("test_clk4_pop_1 failed ...") 			severity error;
