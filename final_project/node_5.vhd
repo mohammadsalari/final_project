@@ -141,6 +141,17 @@ architecture arch_node_5 of node_5 is
 	
 	signal internal_full_y: std_logic;
 	
+	-- signals for fifo_3
+	signal internal_data_out_4: 	std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal internal_empty_4: 		std_logic;
+	
+	signal internal_route_4: std_logic_vector(9 downto 0);
+	signal internal_req_4: std_logic;
+	signal internal_pop_4: std_logic;
+	
+	signal internal_full_w: std_logic;
+	
+	
 begin
 
 lbl_fifo_1: fifo_buffer
@@ -202,6 +213,27 @@ port map(
 
 );
 
+
+
+lbl_fifo_4: fifo_buffer
+generic map(
+	DATA_WIDTH => DATA_WIDTH,
+	ADDR_WIDTH => ADDR_WIDTH
+)
+port map(
+	clk => clk,
+	reset => reset,
+		
+	data_in => data_in_4,
+	push => push_4,
+	pop => internal_pop_4,
+
+	data_out => internal_data_out_4,
+	full => open,
+	empty => internal_empty_4
+
+);
+
 internal_route_1 <= "00101"&internal_data_out_1(4 downto 0);
 internal_req_1 <= not internal_empty_1;
 internal_full_x <= not full_x;
@@ -217,6 +249,10 @@ internal_req_3 <= not internal_empty_3;
 internal_full_y <= not full_y;
 
 
+internal_route_4 <= "00101"&internal_data_out_3(4 downto 0);
+internal_req_4 <= not internal_empty_3;
+internal_full_w <= not full_w;
+
 
 lbl_router: router
 generic map(DATA_WIDTH => DATA_WIDTH)
@@ -227,19 +263,19 @@ port map(
 		route_1 => internal_route_1,
 		route_2 => internal_route_2,
 		route_3 => internal_route_3,
-		route_4 => (others=>'0'),
+		route_4 => internal_route_4,
 		
 		req_1 => internal_req_1,
 		req_2 => internal_req_2,
 		req_3 => internal_req_3,
-		req_4 => '0',
+		req_4 => internal_req_4,
 		
 		data_1 => internal_data_out_1,
 		data_2 => internal_data_out_2,
 		data_3 => internal_data_out_3,
-		data_4 => (others=>'0'),
+		data_4 => internal_data_out_4,
 		
-		w_is_ready => '0',
+		w_is_ready => internal_full_w,
 		x_is_ready => internal_full_x,
 		y_is_ready => internal_full_y,
 		z_is_ready => internal_full_z,
@@ -254,7 +290,7 @@ port map(
 		pop_1 => internal_pop_1,
 		pop_2 => internal_pop_2,
 		pop_3 => internal_pop_3,
-		pop_4 => open,
+		pop_4 => internal_pop_4,
 		
 		data_in_w => data_in_w,
 		data_in_x => data_in_x,
