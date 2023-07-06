@@ -108,7 +108,7 @@ begin
 		-- TODO: drop the packet
 		report "packet should be dropped" severity note;
 		next_2 <= "00";
-	elsif(row_src_1 = row_dst_1) then
+	elsif(row_src_2 = row_dst_2) then
 		-- move only horizontally
 		if(unsigned(col_dst_2) > unsigned(col_src_2)) then
 			--move forward
