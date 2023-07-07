@@ -130,19 +130,18 @@ architecture arch_node_5_6 of node_5_6 is
 	end component;
 
 	
-	signal internal_data_1:	std_logic_vector(DATA_WIDTH - 1 downto 0);
-	signal internal_push_1:		std_logic;
+	--signal internal_data_1:	std_logic_vector(DATA_WIDTH - 1 downto 0);
+	--signal internal_push_1:		std_logic;
 	
 	signal internal_data_2:	std_logic_vector(DATA_WIDTH - 1 downto 0);
 	signal internal_push_2:		std_logic;
 	
-	signal internal_data_3:	std_logic_vector(DATA_WIDTH - 1 downto 0);
-	signal internal_push_3:		std_logic;
+	--signal internal_data_3:	std_logic_vector(DATA_WIDTH - 1 downto 0);
+	--signal internal_push_3:		std_logic;
 	
-	signal internal_data_4:	std_logic_vector(DATA_WIDTH - 1 downto 0);
-	signal internal_push_4:		std_logic;
+	--signal internal_data_4:	std_logic_vector(DATA_WIDTH - 1 downto 0);
+	--signal internal_push_4:		std_logic;
 	
-	signal n_clk: std_logic;
 begin
 
 
@@ -175,21 +174,19 @@ port map(
 	full_z => '0',
 	
 	--output signals from the node(they will connected to adjacent routers)
-	data_in_w => internal_data_1,
-	push_w => internal_push_1,
+	data_in_w => open,
+	push_w => open,
 	
 	data_in_x => internal_data_2,
 	push_x => internal_push_2,
 	
-	data_in_y => internal_data_3,
-	push_y => internal_push_3,
+	data_in_y => open,
+	push_y => open,
 	
-	data_in_z => internal_data_4,
-	push_z => internal_push_4
+	data_in_z => open,
+	push_z => open
 		
 );
-
-n_clk <= not clk;
 
 lbl_node_6: node_6
 generic map(
@@ -197,21 +194,21 @@ generic map(
 	ADDR_WIDTH => ADDR_WIDTH
 )
 port map(
-	clk => n_clk,
+	clk => clk,
 	reset => reset,
 		
 	-- input signals to the node
-	data_in_1 => internal_data_1,
-	push_1 => internal_push_1,
+	data_in_1 => (others=>'0'),
+	push_1 => '0',
 		
 	data_in_2 => internal_data_2,
 	push_2 => internal_push_2,
 		
-	data_in_3 => internal_data_3,
-	push_3 => internal_push_3,
+	data_in_3 => (others=>'0'),
+	push_3 => '0',
 		
-	data_in_4 => internal_data_4,
-	push_4 => internal_push_4,
+	data_in_4 => (others=>'0'),
+	push_4 => '0',
 		
 	--full signals specify the state of adjacent router(they come from adjacent routers)
 	full_w => '0',
