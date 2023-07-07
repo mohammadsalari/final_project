@@ -72,6 +72,14 @@ architecture arch_test_node_6 of test_node_6 is
 	signal tb_push_y: std_logic;
 	signal tb_data_in_y: std_logic_vector(DATA_WIDTH - 1 downto 0);
 	
+	
+	-- 
+	signal tb_data_in_4: std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal tb_push_4: std_logic;
+	signal tb_push_w: std_logic;
+	signal tb_data_in_w: std_logic_vector(DATA_WIDTH - 1 downto 0);
+	
+	
 	signal tb_full_w: std_logic;
 	signal tb_full_x: std_logic;
 	signal tb_full_y: std_logic;
@@ -105,12 +113,12 @@ uut:node_6
 		full_z => tb_full_z,
 		
 		--output signals from the node(they will connected to adjacent routers)
-		push_w => open,
+		push_w => tb_push_w,
 		push_x => tb_push_x,
 		push_y => tb_push_y,
 		push_z => tb_push_z,
 		
-		data_in_w => open,
+		data_in_w => tb_data_in_w,
 		data_in_x => tb_data_in_x,
 		data_in_y => tb_data_in_y,
 		data_in_z => tb_data_in_z
@@ -142,11 +150,11 @@ uut:node_6
 		tb_full_x <= '0';
 		
 	
-		-- fifo_2 wants to send packet to fifo_z
+		-- fifo_2 wants to send packet to fifo_w
 		-- src=7=00111 dst=1=00001
 		tb_data_in_2 <= "110011100001";
 		tb_push_2 <= '1';
-		tb_full_z <= '0';
+		tb_full_w <= '0';
 		
 		
 		-- fifo_3 wants to send packet to fifo_y
@@ -156,31 +164,36 @@ uut:node_6
 		tb_full_y <= '0';
 		
 		wait for 200ns;
-		-- clk 1
+		--clk 1
+		
+		wait for 200ns;
+		-- clk 2
 		-- data is load into fifos
 		tb_push_1 <= '0';
 		tb_push_2 <= '0';
 		tb_push_3 <= '0';
 		
 		wait for 200ns;
-		-- clk 2
+		-- clk 3
 		
 		wait for 200ns; 
-		-- clk 3
-		assert (tb_push_y='1')							report ("test_clk3_push_y failed ...") 		severity error;
-		assert (tb_data_in_y="110010001010")		report ("test_clk3_data_y failed ...") 		severity error;
-		
-		wait for 200ns;
 		-- clk 4
+		assert (tb_push_y='1')							report ("test_clk4_push_y failed ...") 		severity error;
+		assert (tb_data_in_y="110010001010")		report ("test_clk4_data_y failed ...") 		severity error;
 		
-		assert (tb_push_z='1')							report ("test_clk4_push_z failed ...") 		severity error;
-		assert (tb_data_in_z="110011100001")		report ("test_clk4_data_z failed ...") 		severity error;
-
 		wait for 200ns;
 		-- clk 5
+		
+		wait for 200ns;
+		-- clk 6
 		assert (tb_push_x='1')							report ("test_clk5_push_x failed ...") 		severity error;
 		assert (tb_data_in_x="110010100110")		report ("test_clk5_data_x failed ...") 		severity error;
 		
+		wait for 200ns;
+		-- clk 7
+		assert (tb_push_w='1')							report ("test_clk4_push_w failed ...") 		severity error;
+		assert (tb_data_in_w="110011100001")		report ("test_clk4_data_w failed ...") 		severity error;
+
 		
 		wait;
 		

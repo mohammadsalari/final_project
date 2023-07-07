@@ -137,9 +137,9 @@ uut: arbiter
 
        -- fifo_2 : data="110011100001" [type=11 src=7=00111 dst=1=00001]
        data_2 <= "110011100001";
-       dst_2 <= "11";
+       dst_2 <= "00";
 		 req_2 <= '1';
-       z_is_ready <= '1'; -- the packet will be trasfered to fifo_z
+       w_is_ready <= '1'; -- the packet will be trasfered to fifo_w
 
 
        -- fifo_3 : data="110010001010" [type=11 src=4=00100 dst=10=01010]
@@ -164,8 +164,8 @@ uut: arbiter
 		assert (grant_1='0')						report ("test_3_grant_2 failed ...") 		severity error;
 		assert (grant_2='1')						report ("test_3_grant_3 failed ...") 		severity error;
 		
-		assert (req_to_z='1')					report ("test_3_req_to_x failed ...") 		severity error;
-		assert (data_z="110011100001")		report ("test_3_data_w failed ...") 		severity error;
+		assert (req_to_w='1')					report ("test_3_req_to_w failed ...") 		severity error;
+		assert (data_w="110011100001")		report ("test_3_data_w failed ...") 		severity error;
 		
 		req_2 <= '0';
 		
