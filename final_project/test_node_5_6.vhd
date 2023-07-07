@@ -27,8 +27,6 @@ architecture arch_test_node_5_6 of test_node_5_6 is
 		data_in_3: 	in std_logic_vector(DATA_WIDTH - 1 downto 0);
 		push_3: 		in std_logic;
 		
-		data_in_4: 	in std_logic_vector(DATA_WIDTH - 1 downto 0);
-		push_4: 		in std_logic;
 		
 		
 		--output signals from the node(they will connected to adjacent routers)
@@ -42,6 +40,7 @@ architecture arch_test_node_5_6 of test_node_5_6 is
 		data_in_y: out std_logic_vector(DATA_WIDTH - 1 downto 0);
 		data_in_z: out std_logic_vector(DATA_WIDTH - 1 downto 0);
 		
+		--output tst signals coming from node_5
 		tst_in_w: out std_logic_vector(DATA_WIDTH - 1 downto 0);
 		tst_push_w: out std_logic;
 		
@@ -49,7 +48,17 @@ architecture arch_test_node_5_6 of test_node_5_6 is
 		tst_push_y: out std_logic;
 		
 		tst_in_z: out std_logic_vector(DATA_WIDTH - 1 downto 0);
-		tst_push_z: out std_logic
+		tst_push_z: out std_logic;
+		
+		--input tst signals for node_6
+		tst_data_in_1: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+		tst_push_1: in std_logic;
+		
+		tst_data_in_3: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+		tst_push_3: in std_logic;
+		
+		tst_data_in_4: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+		tst_push_4: in std_logic
 		
 	);
 	end component;
@@ -94,6 +103,17 @@ architecture arch_test_node_5_6 of test_node_5_6 is
 	signal tb_tst_in_z: std_logic_vector(DATA_WIDTH - 1 downto 0);
 	signal tb_tst_push_z: std_logic;
 	
+	--
+	signal tb_tst_data_in_1: std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal tb_tst_push_1: std_logic;
+		
+	signal tb_tst_data_in_3: std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal tb_tst_push_3: std_logic;
+		
+	signal tb_tst_data_in_4: std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal tb_tst_push_4: std_logic;
+		
+	
 begin
 
 uut:node_5_6
@@ -112,15 +132,12 @@ uut:node_5_6
 		data_in_3 => tb_data_in_3,
 		push_3 => tb_push_3,
 		
-		data_in_4 => (others=>'0'),
-		push_4 => '0',
 		
 		
 		--output signals from the node(they will connected to adjacent routers)
 		push_w => tb_push_w,
 		push_x => tb_push_x,
 		push_y => tb_push_y,
-		push_z => tb_push_z,
 		
 		data_in_w => tb_data_in_w,
 		data_in_x => tb_data_in_x,
@@ -134,7 +151,17 @@ uut:node_5_6
 		tst_push_y => tb_tst_push_y,
 	
 		tst_in_z => tb_tst_in_z,
-		tst_push_z => tb_tst_push_z
+		tst_push_z => tb_tst_push_z,
+		
+		tst_data_in_1 => tb_tst_data_in_1,
+		tst_push_1 => tb_tst_push_1,
+		
+		tst_data_in_3 => tb_tst_data_in_3,
+		tst_push_3 => tb_tst_push_3,
+		
+		tst_data_in_4 => tb_tst_data_in_4,
+		tst_push_4 => tb_tst_push_4
+		
 	);
 
 
@@ -155,24 +182,32 @@ uut:node_5_6
 		tb_reset <= '0';
 		wait for 100ns; -- 250ns
 		
-		-- fifo_1 wants to send packet to fifo_x
+		-- fifo_1 of node_5 wants to send packet to fifo_x
 		-- src=5=00101 dst=6=00110
 		tb_data_in_1 <= "110010100110";
 		tb_push_1 <= '1';
 		
 	
-		-- fifo_2 wants to send packet to fifo_w
+		-- fifo_1 of node_6 wants to send packet to fifo_w
 		-- src=7=00111 dst=1=00001
-		tb_data_in_2 <= "110011100001";
-		tb_push_2 <= '1';
+		tb_tst_data_in_1 <= "110011100001";
+		tb_tst_push_1 <= '1';
 		
 		
-		-- fifo_3 wants to send packet to fifo_y
+		-- fifo_3 of node_5 wants to send packet to fifo_y
 		-- src=4=00100 dst=10=01010
 		tb_data_in_3 <= "110010001010";
 		tb_push_3 <= '1';
 		
-		tb_push_4 <= '0';
+		-- fifo_3 of node_6 wants to send packet to fifo_y
+		-- src=6=00110 dst=10=01001
+		tb_tst_data_in_3 <= "110011001001";
+		tb_tst_push_3 <= '1';
+		
+		-- fifo_4 of node_6 wants to send packet to fifo_y
+		-- src=10=01010 dst=1=00001
+		tb_tst_data_in_4 <= "110000100001";
+		tb_tst_push_4 <= '1';
 		
 		wait for 200ns; -- 450ns
 		--clk 1
@@ -183,6 +218,9 @@ uut:node_5_6
 		tb_push_1 <= '0';
 		tb_push_2 <= '0';
 		tb_push_3 <= '0';
+		tb_tst_push_1 <= '0';
+		tb_tst_push_3 <= '0';
+		tb_tst_push_4 <= '0';
 		
 		wait for 200ns; -- 850ns
 		--clk 3

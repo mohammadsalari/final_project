@@ -19,9 +19,6 @@ port(
 	data_in_3: 	in std_logic_vector(DATA_WIDTH - 1 downto 0);
 	push_3: 		in std_logic;
 	
-	data_in_4: 	in std_logic_vector(DATA_WIDTH - 1 downto 0);
-	push_4: 		in std_logic;
-	
 	
 	--output signals from the node(they will connected to adjacent routers)
 	data_in_w: out std_logic_vector(DATA_WIDTH - 1 downto 0);
@@ -36,7 +33,7 @@ port(
 	data_in_z: out std_logic_vector(DATA_WIDTH - 1 downto 0);
 	push_z: out std_logic;
 	
-	--tst signals coming from node_5
+	--output tst signals coming from node_5
 	tst_in_w: out std_logic_vector(DATA_WIDTH - 1 downto 0);
 	tst_push_w: out std_logic;
 	
@@ -44,7 +41,17 @@ port(
 	tst_push_y: out std_logic;
 	
 	tst_in_z: out std_logic_vector(DATA_WIDTH - 1 downto 0);
-	tst_push_z: out std_logic
+	tst_push_z: out std_logic;
+	
+	--input tst signals for node_6
+	tst_data_in_1: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	tst_push_1: in std_logic;
+	
+	tst_data_in_3: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	tst_push_3: in std_logic;
+	
+	tst_data_in_4: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+	tst_push_4: in std_logic
 	
 );
 end entity;
@@ -141,13 +148,14 @@ architecture arch_node_5_6 of node_5_6 is
 	signal internal_data_2:	std_logic_vector(DATA_WIDTH - 1 downto 0);
 	signal internal_push_2:		std_logic;
 	
-	--signal internal_data_3:	std_logic_vector(DATA_WIDTH - 1 downto 0);
-	--signal internal_push_3:		std_logic;
+	signal internal_data_z:	std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal internal_push_z:		std_logic;
 	
 	--signal internal_data_4:	std_logic_vector(DATA_WIDTH - 1 downto 0);
 	--signal internal_push_4:		std_logic;
 	
 begin
+
 
 
 lbl_node_5: node_5
@@ -169,8 +177,8 @@ port map(
 	data_in_3 => data_in_3,
 	push_3 => push_3,
 		
-	data_in_4 => data_in_4,
-	push_4 => push_4,
+	data_in_4 => internal_data_z,
+	push_4 => internal_push_z,
 		
 	--full signals specify the state of adjacent router(they come from adjacent routers)
 	full_w => '0',
@@ -203,17 +211,17 @@ port map(
 	reset => reset,
 		
 	-- input signals to the node
-	data_in_1 => (others=>'0'),
-	push_1 => '0',
+	data_in_1 => tst_data_in_1,
+	push_1 => tst_push_1,
 		
 	data_in_2 => internal_data_2,
 	push_2 => internal_push_2,
 		
-	data_in_3 => (others=>'0'),
-	push_3 => '0',
+	data_in_3 => tst_data_in_3,
+	push_3 => tst_push_3,
 		
-	data_in_4 => (others=>'0'),
-	push_4 => '0',
+	data_in_4 => tst_data_in_4,
+	push_4 => tst_push_4,
 		
 	--full signals specify the state of adjacent router(they come from adjacent routers)
 	full_w => '0',
@@ -231,8 +239,8 @@ port map(
 	data_in_y => data_in_y,
 	push_y => push_y,
 	
-	data_in_z => data_in_z,
-	push_z => push_z
+	data_in_z => internal_data_z,
+	push_z => internal_push_z
 		
 );
 

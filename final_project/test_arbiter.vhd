@@ -136,10 +136,10 @@ uut: arbiter
        x_is_ready <= '1'; -- the packet will be trasfered to fifo_x
 
        -- fifo_2 : data="110011100001" [type=11 src=7=00111 dst=1=00001]
-       data_2 <= "110011100001";
-       dst_2 <= "00";
-		 req_2 <= '1';
-       w_is_ready <= '1'; -- the packet will be trasfered to fifo_w
+       data_4 <= "110011100100";
+       dst_4 <= "11";
+		 req_4 <= '1';
+       z_is_ready <= '1'; -- the packet will be trasfered to fifo_w
 
 
        -- fifo_3 : data="110010001010" [type=11 src=4=00100 dst=10=01010]
