@@ -130,7 +130,7 @@ begin
 
 	
 	--next state register
-	process(reg_state_w, reg_state_x, reg_state_y, reg_state_z, req_1, req_2, req_3, req_4)
+	process(reg_state_w, reg_state_x, reg_state_y, reg_state_z)
 	
 	begin
 		-- default value of controlling signals of input_buffers
@@ -145,6 +145,10 @@ begin
 		next_req_to_y <= '0';
 		next_req_to_z <= '0';
 		
+		next_data_w <= (others=>'0');
+		next_data_x <= (others=>'0');
+		next_data_y <= (others=>'0');
+		next_data_z <= (others=>'0');
 		
 		-- next state of fifo_w
 		if(w_is_ready = '1') then							-- fifo_out_w is not full, it can not accept a new packet 
@@ -183,7 +187,7 @@ begin
 				
 				when others =>
 					report "something wrong is happend in: arbiter -> next_state logic -> reg_state_w";
-					next_state_w <= w1; -- back to the 'w1' state
+					next_state_w <= w2; -- back to the 'w1' state
 			end case;
 		end if;
 		
