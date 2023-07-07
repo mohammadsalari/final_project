@@ -30,11 +30,6 @@ architecture arch_test_node_5_6 of test_node_5_6 is
 		data_in_4: 	in std_logic_vector(DATA_WIDTH - 1 downto 0);
 		push_4: 		in std_logic;
 		
-		--full signals specify the state of adjacent router(they come from adjacent routers)
-		full_w: in std_logic;
-		full_x: in std_logic;
-		full_y: in std_logic;
-		full_z: in std_logic;
 		
 		--output signals from the node(they will connected to adjacent routers)
 		push_w: out std_logic;
@@ -45,7 +40,16 @@ architecture arch_test_node_5_6 of test_node_5_6 is
 		data_in_w: out std_logic_vector(DATA_WIDTH - 1 downto 0);
 		data_in_x: out std_logic_vector(DATA_WIDTH - 1 downto 0);
 		data_in_y: out std_logic_vector(DATA_WIDTH - 1 downto 0);
-		data_in_z: out std_logic_vector(DATA_WIDTH - 1 downto 0)
+		data_in_z: out std_logic_vector(DATA_WIDTH - 1 downto 0);
+		
+		tst_in_w: out std_logic_vector(DATA_WIDTH - 1 downto 0);
+		tst_push_w: out std_logic;
+		
+		tst_in_y: out std_logic_vector(DATA_WIDTH - 1 downto 0);
+		tst_push_y: out std_logic;
+		
+		tst_in_z: out std_logic_vector(DATA_WIDTH - 1 downto 0);
+		tst_push_z: out std_logic
 		
 	);
 	end component;
@@ -80,10 +84,15 @@ architecture arch_test_node_5_6 of test_node_5_6 is
 	signal tb_data_in_w: std_logic_vector(DATA_WIDTH - 1 downto 0);
 	
 	
-	signal tb_full_w: std_logic;
-	signal tb_full_x: std_logic;
-	signal tb_full_y: std_logic;
-	signal tb_full_z: std_logic;
+	
+	signal tb_tst_in_w: std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal tb_tst_push_w: std_logic;
+	
+	signal tb_tst_in_y: std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal tb_tst_push_y: std_logic;
+	
+	signal tb_tst_in_z: std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal tb_tst_push_z: std_logic;
 	
 begin
 
@@ -106,11 +115,6 @@ uut:node_5_6
 		data_in_4 => (others=>'0'),
 		push_4 => '0',
 		
-		--full signals specify the state of adjacent router(they come from adjacent routers)
-		full_w => tb_full_w,
-		full_x => tb_full_x,
-		full_y => tb_full_y,
-		full_z => tb_full_z,
 		
 		--output signals from the node(they will connected to adjacent routers)
 		push_w => tb_push_w,
@@ -121,7 +125,16 @@ uut:node_5_6
 		data_in_w => tb_data_in_w,
 		data_in_x => tb_data_in_x,
 		data_in_y => tb_data_in_y,
-		data_in_z => tb_data_in_z
+		data_in_z => tb_data_in_z,
+		
+		tst_in_w => tb_tst_in_w,
+		tst_push_w => tb_tst_push_w,
+	
+		tst_in_y => tb_tst_in_y,
+		tst_push_y => tb_tst_push_y,
+	
+		tst_in_z => tb_tst_in_z,
+		tst_push_z => tb_tst_push_z
 	);
 
 
@@ -138,68 +151,71 @@ uut:node_5_6
 	begin
 	
 		tb_reset <= '1';
-		tb_push_1 <= '0';
-		wait for 150ns;
+		wait for 150ns; -- 150ns
 		tb_reset <= '0';
-		wait for 100ns;
+		wait for 100ns; -- 250ns
 		
 		-- fifo_1 wants to send packet to fifo_x
 		-- src=5=00101 dst=6=00110
 		tb_data_in_1 <= "110010100110";
 		tb_push_1 <= '1';
-		tb_full_x <= '0';
 		
 	
 		-- fifo_2 wants to send packet to fifo_w
 		-- src=7=00111 dst=1=00001
 		tb_data_in_2 <= "110011100001";
 		tb_push_2 <= '1';
-		tb_full_w <= '0';
 		
 		
 		-- fifo_3 wants to send packet to fifo_y
 		-- src=4=00100 dst=10=01010
 		tb_data_in_3 <= "110010001010";
 		tb_push_3 <= '1';
-		tb_full_y <= '0';
 		
-		wait for 200ns;
+		tb_push_4 <= '0';
+		
+		wait for 200ns; -- 450ns
 		--clk 1
+		
+		wait for 200ns; -- 650ns
+		--clk 2
 		-- data is load into fifos
 		tb_push_1 <= '0';
 		tb_push_2 <= '0';
 		tb_push_3 <= '0';
 		
-		wait for 200ns;
-		-- clk 2
+		wait for 200ns; -- 850ns
+		--clk 3
+		assert (tb_tst_push_y='1')							report ("test_tst_push_y failed ...") 		severity error;
+		assert (tb_tst_in_y="110010001010")				report ("test_tst_data_y failed ...") 		severity error;
 		
-		wait for 200ns;
-		-- clk 3
-		
-		wait for 200ns; 
+		wait for 200ns; -- 1050ns
 		-- clk 4
 		
-		wait for 200ns;
+		wait for 200ns; -- 1250ns
 		-- clk 5
+		report ("test_packet 5->6 should be dropped...") 		severity note;
 		
-		wait for 200ns;
+		wait for 200ns; -- 1450ns
 		-- clk 6
+		assert (tb_tst_push_w='1')							report ("test_clk6_push_y failed ...") 		severity error;
+		assert (tb_tst_in_w="110011100001")				report ("test_clk6_data_y failed ...") 		severity error;
 		
-		wait for 200ns;
+		wait for 200ns; -- 1650ns
 		-- clk 7
-		assert (tb_push_y='1')							report ("test_clk6_push_y failed ...") 		severity error;
-		assert (tb_data_in_y="110010001010")		report ("test_clk6_data_y failed ...") 		severity error;
 		
-		wait for 200ns;
+		wait for 200ns; -- 1850ns
 		-- clk 8
 		
-		wait for 200ns;
+		wait for 200ns; -- 2050ns
 		-- clk 9
 		
-		wait for 200ns;
+		wait for 200ns; -- 2250ns
 		-- clk 10
-		report ("test_clk10: packet 5->6 should be dropped ...") 		severity note;
-
+		report("For testing, packet 5->6 has not been dropped... ");
+		assert (tb_push_w='1')									report ("test_push_w failed ...") 			severity error;
+		assert (tb_data_in_w="110010100110")				report ("test_data_in_w failed ...") 		severity error;
+		
 		wait for 200ns;
 		-- clk 11
 		
@@ -214,6 +230,9 @@ uut:node_5_6
 		
 		wait for 200ns;
 		-- clk 15
+		
+		wait for 200ns;
+		-- clk 16
 		
 		wait;
 		

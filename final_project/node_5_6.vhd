@@ -22,11 +22,6 @@ port(
 	data_in_4: 	in std_logic_vector(DATA_WIDTH - 1 downto 0);
 	push_4: 		in std_logic;
 	
-	--full signals specify the state of adjacent router(they come from adjacent routers)
-	full_w: in std_logic;
-	full_x: in std_logic;
-	full_y: in std_logic;
-	full_z: in std_logic;
 	
 	--output signals from the node(they will connected to adjacent routers)
 	data_in_w: out std_logic_vector(DATA_WIDTH - 1 downto 0);
@@ -39,7 +34,17 @@ port(
 	push_y: out std_logic;
 	
 	data_in_z: out std_logic_vector(DATA_WIDTH - 1 downto 0);
-	push_z: out std_logic
+	push_z: out std_logic;
+	
+	--tst signals coming from node_5
+	tst_in_w: out std_logic_vector(DATA_WIDTH - 1 downto 0);
+	tst_push_w: out std_logic;
+	
+	tst_in_y: out std_logic_vector(DATA_WIDTH - 1 downto 0);
+	tst_push_y: out std_logic;
+	
+	tst_in_z: out std_logic_vector(DATA_WIDTH - 1 downto 0);
+	tst_push_z: out std_logic
 	
 );
 end entity;
@@ -174,17 +179,17 @@ port map(
 	full_z => '0',
 	
 	--output signals from the node(they will connected to adjacent routers)
-	data_in_w => open,
-	push_w => open,
+	data_in_w => tst_in_w,
+	push_w => tst_push_w,
 	
 	data_in_x => internal_data_2,
 	push_x => internal_push_2,
 	
-	data_in_y => open,
-	push_y => open,
+	data_in_y => tst_in_y,
+	push_y => tst_push_y,
 	
-	data_in_z => open,
-	push_z => open
+	data_in_z => tst_in_z,
+	push_z => tst_push_z
 		
 );
 
