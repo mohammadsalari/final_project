@@ -103,8 +103,8 @@ uut:node_5
 		data_in_3 => tb_data_in_3,
 		push_3 => tb_push_3,
 		
-		data_in_4 => (others=>'0'),
-		push_4 => '0',
+		data_in_4 => tb_data_in_4,
+		push_4 => tb_push_4,
 		
 		--full signals specify the state of adjacent router(they come from adjacent routers)
 		full_w => tb_full_w,
@@ -163,6 +163,13 @@ uut:node_5
 		tb_push_3 <= '1';
 		tb_full_y <= '0';
 		
+		-- fifo_4 wants to send packet to fifo_z
+		-- src=1=00001 dst=4=00100
+		tb_data_in_4 <= "110000100100";
+		tb_push_4 <= '1';
+		tb_full_z <= '0';
+		
+		
 		wait for 200ns;
 		--clk 1
 		
@@ -172,7 +179,7 @@ uut:node_5
 		tb_push_1 <= '0';
 		tb_push_2 <= '0';
 		tb_push_3 <= '0';
-		
+		tb_push_4 <= '0';
 		wait for 200ns;
 		-- clk 3
 		
