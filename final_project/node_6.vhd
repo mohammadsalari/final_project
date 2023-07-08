@@ -249,8 +249,8 @@ internal_req_3 <= not internal_empty_3;
 internal_full_y <= not full_y;
 
 
-internal_route_4 <= "00110"&internal_data_out_3(4 downto 0);
-internal_req_4 <= not internal_empty_3;
+internal_route_4 <= "00110"&internal_data_out_4(4 downto 0);
+internal_req_4 <= not internal_empty_4;
 internal_full_w <= not full_w;
 
 
