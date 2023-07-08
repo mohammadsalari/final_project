@@ -174,9 +174,9 @@ uut:node_5_6
 	begin
 	
 		tb_reset <= '1';
-		wait for 300ns; -- 150ns
+		wait for 300ns; -- 300ns
 		tb_reset <= '0';
-		wait for 200ns; -- 250ns
+		wait for 200ns; -- 500ns
 		
 		-- fifo_1 of node_5 wants to send packet to fifo_x
 		-- src=5=00101 dst=6=00110
@@ -207,11 +207,9 @@ uut:node_5_6
 		
 		
 		tb_push_2 <= '0';
-		--wait for 400ns; -- 450ns
-		--clk 1
 		
-		wait for 400ns; -- 650ns
-		--clk 2
+		wait for 400ns; -- 900ns
+		--clk 1
 		-- data is load into fifos
 		tb_push_1 <= '0';
 		tb_push_3 <= '0';
@@ -219,55 +217,48 @@ uut:node_5_6
 		tb_tst_push_3 <= '0';
 		tb_tst_push_4 <= '0';
 		
-		wait for 400ns; -- 850ns
-		--clk 3
-		assert (tb_tst_push_y='1')							report ("test_tst_push_y failed ...") 		severity error;
-		assert (tb_tst_in_y="110010001010")				report ("test_tst_data_y failed ...") 		severity error;
+		wait for 400ns; -- 1300ns
+		--clk 2
 		
-		wait for 400ns; -- 1050ns
+		wait for 400ns; -- 1700ns
 		-- clk 4
+		assert (tb_data_in_y="110011001001")				report ("test_6->9_data failed ...") 		severity error;
+		assert (tb_push_y='1')									report ("test_6->9_push failed ...") 		severity error;
 		
-		wait for 400ns; -- 1250ns
+		assert (tb_tst_in_y="110010001010")					report ("test_4->10_data failed ...") 		severity error;
+		assert (tb_tst_push_y='1')								report ("test_4->10_push failed ...") 		severity error;
+		
+		wait for 400ns; -- 2100ns
 		-- clk 5
-		report ("test_packet 5->6 should be dropped...") 		severity note;
+		assert (tb_data_in_w="110101000001")				report ("test_10->1_data failed ...") 		severity error;
+		assert (tb_push_w='1')									report ("test_10->1_push failed ...") 		severity error;
 		
-		wait for 400ns; -- 1450ns
+		wait for 400ns; -- 2500ns
 		-- clk 6
-		assert (tb_tst_push_w='1')							report ("test_clk6_push_y failed ...") 		severity error;
-		assert (tb_tst_in_w="110011100001")				report ("test_clk6_data_y failed ...") 		severity error;
+		assert (tb_data_in_w="110011100001")				report ("test_7->1_data failed ...") 		severity error;
+		assert (tb_push_w='1')									report ("test_7->1_push failed ...") 		severity error;
 		
-		wait for 400ns; -- 1650ns
+		
+		wait for 400ns; -- 2900ns
 		-- clk 7
 		
-		wait for 400ns; -- 1850ns
+		wait for 400ns; -- 3300ns
 		-- clk 8
 		
-		wait for 400ns; -- 2050ns
+		wait for 400ns; -- 3700ns
 		-- clk 9
 		
-		wait for 400ns; -- 2250ns
+		wait for 400ns; -- 4100ns
 		-- clk 10
-		report("For testing, packet 5->6 has not been dropped... ");
-		assert (tb_push_w='1')									report ("test_push_w failed ...") 			severity error;
-		assert (tb_data_in_w="110010100110")				report ("test_data_in_w failed ...") 		severity error;
 		
-		wait for 400ns;
+		wait for 400ns; -- 4500ns
 		-- clk 11
+		report("test_5->6: For testing, packet 5->6 has not been dropped... ");
+		assert (tb_data_in_w="110010100110")				report ("test_5->6_data failed ...") 		severity error;
+		assert (tb_push_w='1')									report ("test_5->6_push failed ...") 		severity error;
 		
-		wait for 400ns;
+		wait for 400ns; -- 4900ns
 		-- clk 12
-		
-		wait for 400ns;
-		-- clk 13
-		
-		wait for 400ns;
-		-- clk 14
-		
-		wait for 400ns;
-		-- clk 15
-		
-		wait for 400ns;
-		-- clk 16
 		
 		wait;
 		
